@@ -1,8 +1,9 @@
 import React from "react";
 import "./App.css";
+import Timer from "../timer/Timer";
+import Preset from "../preset/Preset";
 
-import { createStore, combineReducers } from "redux";
-
+/*
 const workTimeReducer = (state = 25, action) => {
   switch (action.type) {
     case "INC_WORKTIME":
@@ -45,37 +46,14 @@ const currentTimeReducer = (state = 25, action) => {
   }
 };
 
-const reducers = combineReducers({
-  workTime: workTimeReducer,
-  breakTime: breakTimeReducer,
-  isRunning: isRunningReducer,
-  currentTime: currentTimeReducer
-});
-
-const store = createStore(reducers);
-
-store.subscribe(() => {
-  console.log("store changed", store.getState());
-});
-
-store.dispatch({ type: "INC_WORKTIME" });
-store.dispatch({ type: "INC_WORKTIME" });
-store.dispatch({ type: "INC_WORKTIME" });
-store.dispatch({ type: "INC_WORKTIME" });
-store.dispatch({ type: "PAUSE" });
-store.dispatch({ type: "PLAY", time: store.getState().workTime });
-store.dispatch({ type: "TICK" });
-store.dispatch({ type: "TICK" });
-store.dispatch({ type: "TICK" });
+*/
 
 function App() {
-  let currentTime = store.getState().currentTime;
-  let minutesLeft = Math.floor(currentTime / 60);
-  let secondsLeft = currentTime % 60;
-
   return (
     <div className="App">
-      <h1>{minutesLeft + ":" + secondsLeft}</h1>
+      <Preset value="25" />
+      <Preset value="5" />
+      <Timer title="Work" timeLeft={25 * 60} running={false} />
     </div>
   );
 }
