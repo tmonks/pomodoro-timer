@@ -1,5 +1,5 @@
 const initialState = {
-  sessionTitle: "Work",
+  label: "Work",
   timeLeft: 25 * 60,
   running: false
 };

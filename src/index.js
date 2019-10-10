@@ -7,7 +7,7 @@ import timerReducer from "./timer/TimerReducer";
 import presetReducer from "./preset/PresetReducer";
 import { logger } from "redux-logger";
 
-import { Provider, connect } from "react-redux";
+import { Provider } from "react-redux";
 import { createStore, combineReducers, applyMiddleware } from "redux";
 
 const reducer = combineReducers({
@@ -28,14 +28,19 @@ const store = createStore(reducer, middleware);
 // console.log("store changed", store.getState());
 // });
 
-store.dispatch({ type: "PAUSE" });
-store.dispatch({ type: "PLAY" });
-store.dispatch({ type: "TICK" });
-store.dispatch({ type: "TICK" });
-store.dispatch({ type: "TICK" });
-store.dispatch({ type: "INCREMENT", id: 0 });
-store.dispatch({ type: "DECREMENT", id: 1 });
+// store.dispatch({ type: "PAUSE" });
+// store.dispatch({ type: "PLAY" });
+// store.dispatch({ type: "TICK" });
+// store.dispatch({ type: "TICK" });
+// store.dispatch({ type: "TICK" });
+// store.dispatch({ type: "INCREMENT", id: 0 });
+// store.dispatch({ type: "DECREMENT", id: 1 });
 
-ReactDOM.render(<App />, document.getElementById("root"));
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById("root")
+);
 
 serviceWorker.unregister();

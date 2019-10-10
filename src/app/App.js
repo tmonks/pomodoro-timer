@@ -2,60 +2,57 @@ import React from "react";
 import "./App.css";
 import Timer from "../timer/Timer";
 import Preset from "../preset/Preset";
+import { connect } from "react-redux";
 
-/*
-const workTimeReducer = (state = 25, action) => {
-  switch (action.type) {
-    case "INC_WORKTIME":
-      return state < 60 ? state + 1 : state;
-    case "DEC_WORKTIME":
-      return state > 1 ? state - 1 : state;
-    default:
-      return state;
-  }
-};
-
-const breakTimeReducer = (state = 5, action) => {
-  switch (action.type) {
-    case "INC_BREAKTIME":
-      return state < 60 ? state + 1 : state;
-    case "DEC_BREAKTIME":
-      return state > 1 ? state - 1 : state;
-    default:
-      return state;
-  }
-};
-
-const isRunningReducer = (state = false, action) => {
-  if (action.type === "PLAY") {
-    return true;
-  } else if (action.type === "PAUSE") {
-    return false;
-  } else {
-    return state;
-  }
-};
-
-const currentTimeReducer = (state = 25, action) => {
-  if (action.type === "PLAY") {
-    return action.time * 60;
-  } else if (action.type === "TICK") {
-    return state - 1;
-  } else {
-    return state;
-  }
-};
-
-*/
-
-function App() {
+function App(props) {
   return (
-    <div className="App">
-      <Preset value="25" />
-      <Preset value="5" />
-      <Timer title="Work" timeLeft={25 * 60} running={false} />
+    <div className="app">
+      <Preset id={0} />
+      <Preset id={1} />
+      <Timer
+        label={props.label}
+        timeLeft={props.timeLeft}
+        running={props.running}
+        play={props.play}
+        pause={props.pause}
+        reset={() => props.reset(props.startTime)}
+      />
     </div>
   );
 }
 
-export default App;
+const mapStateToProps = state => {
+  return {
+    label: state.timer.label,
+    timeLeft: state.timer.timeLeft,
+    running: state.timer.running,
+    startTime: state.presets[0].value
+  };
+};
+
+let timerID;
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    tick: () => dispatch({ type: "TICK" }),
+    play: () => {
+      dispatch({ type: "PLAY" });
+      timerID = setInterval(() => {
+        dispatch({ type: "TICK" });
+      }, "1000");
+    },
+    pause: () => {
+      dispatch({ type: "PAUSE" });
+      clearInterval(timerID);
+    },
+    reset: value => {
+      dispatch({ type: "PAUSE" });
+      dispatch({ type: "SET_TIME", payload: value * 60 });
+    }
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);
