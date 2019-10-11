@@ -4,18 +4,43 @@ import Timer from "../timer/Timer";
 import Preset from "../preset/Preset";
 import { connect } from "react-redux";
 
+let timerID = null;
+
 function App(props) {
+  const toggleTimer = () => {
+    if (!props.running) {
+      timerID = setInterval(() => {
+        props.tick();
+      }, "1000");
+      props.start();
+    } else {
+      clearInterval(timerID);
+      props.stop();
+    }
+  };
+
+  const resetTimer = () => {
+    if (props.running) {
+      clearInterval(timerID);
+    }
+    props.reset();
+  };
+
+  if (props.running && props.timeLeft === 0) {
+    clearInterval(timerID);
+    props.stop();
+  }
+
   return (
     <div className="app">
-      <Preset id={0} />
-      <Preset id={1} />
+      <Preset index={0} id="session" />
+      <Preset index={1} id="break" />
       <Timer
         label={props.label}
         timeLeft={props.timeLeft}
         running={props.running}
-        play={props.play}
-        pause={props.pause}
-        reset={() => props.reset(props.startTime)}
+        toggle={toggleTimer}
+        reset={resetTimer}
       />
     </div>
   );
@@ -26,29 +51,16 @@ const mapStateToProps = state => {
     label: state.timer.label,
     timeLeft: state.timer.timeLeft,
     running: state.timer.running,
-    startTime: state.presets[0].value
+    presets: state.presets
   };
 };
 
-let timerID;
-
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = dispatch => {
   return {
     tick: () => dispatch({ type: "TICK" }),
-    play: () => {
-      dispatch({ type: "PLAY" });
-      timerID = setInterval(() => {
-        dispatch({ type: "TICK" });
-      }, "1000");
-    },
-    pause: () => {
-      dispatch({ type: "PAUSE" });
-      clearInterval(timerID);
-    },
-    reset: value => {
-      dispatch({ type: "PAUSE" });
-      dispatch({ type: "SET_TIME", payload: value * 60 });
-    }
+    start: () => dispatch({ type: "PLAY" }),
+    stop: () => dispatch({ type: "PAUSE" }),
+    reset: () => dispatch({ type: "RESET" })
   };
 };
 

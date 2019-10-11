@@ -4,24 +4,29 @@ import { connect } from "react-redux";
 function Preset(props) {
   return (
     <div>
-      {props.label}:<button onClick={props.decrement}>&lt;</button>
-      {props.value}
-      <button onClick={props.increment}>&gt;</button>
+      <div id={props.id + "-label"}>{props.label}</div>
+      <button onClick={props.decrement} id={props.id + "-decrement"}>
+        &lt;
+      </button>
+      <span id={props.id + "-length"}>{props.value}</span>
+      <button onClick={props.increment} id={props.id + "-increment"}>
+        &gt;
+      </button>
     </div>
   );
 }
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    label: state.presets[ownProps.id].label,
-    value: state.presets[ownProps.id].value
+    label: state.presets[ownProps.index].label,
+    value: state.presets[ownProps.index].value
   };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    increment: () => dispatch({ type: "INCREMENT", id: ownProps.id }),
-    decrement: () => dispatch({ type: "DECREMENT", id: ownProps.id })
+    increment: () => dispatch({ type: "INCREMENT", id: ownProps.index }),
+    decrement: () => dispatch({ type: "DECREMENT", id: ownProps.index })
   };
 };
 
