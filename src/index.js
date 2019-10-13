@@ -6,6 +6,7 @@ import * as serviceWorker from "./serviceWorker";
 import timerReducer from "./timer/TimerReducer";
 import presetReducer from "./preset/PresetReducer";
 import { logger } from "redux-logger";
+import thunk from "redux-thunk";
 
 import { Provider } from "react-redux";
 import { createStore, combineReducers, applyMiddleware } from "redux";
@@ -15,7 +16,7 @@ const reducer = combineReducers({
   presets: presetReducer
 });
 
-const middleware = applyMiddleware(logger);
+const middleware = applyMiddleware(logger, thunk);
 const store = createStore(reducer, middleware);
 
 ReactDOM.render(

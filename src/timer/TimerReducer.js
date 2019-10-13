@@ -1,7 +1,9 @@
 const initialState = {
   label: "Work",
   timeLeft: 25 * 60,
-  running: false
+  timeLeft: 3,
+  running: false,
+  currentPreset: 0
 };
 
 const timerReducer = (state = initialState, action) => {
@@ -29,6 +31,13 @@ const timerReducer = (state = initialState, action) => {
       return state;
     case "RESET":
       return { ...state, timeLeft: initialState.timeLeft, running: false };
+    case "NEXT_PRESET":
+      return {
+        ...state,
+        currentPreset: action.index,
+        timeLeft: action.timeLeft,
+        label: action.label
+      };
     default:
       return state;
   }

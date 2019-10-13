@@ -27,8 +27,7 @@ function App(props) {
   };
 
   if (props.running && props.timeLeft === 0) {
-    clearInterval(timerID);
-    props.stop();
+    props.nextPreset();
   }
 
   return (
@@ -46,6 +45,22 @@ function App(props) {
   );
 }
 
+const nextPreset = () => {
+  return (dispatch, getState) => {
+    const { timer, presets } = getState();
+    let nextPreset = (timer.currentPreset + 1) % presets.length;
+    let lastPreset = presets.length - 1;
+    console.log("setting preset to: " + lastPreset);
+
+    dispatch({
+      type: "NEXT_PRESET",
+      index: lastPreset,
+      timeLeft: presets[nextPreset].value * 60,
+      label: presets[nextPreset].label
+    });
+  };
+};
+
 const mapStateToProps = state => {
   return {
     label: state.timer.label,
@@ -60,7 +75,8 @@ const mapDispatchToProps = dispatch => {
     tick: () => dispatch({ type: "TICK" }),
     start: () => dispatch({ type: "PLAY" }),
     stop: () => dispatch({ type: "PAUSE" }),
-    reset: () => dispatch({ type: "RESET" })
+    reset: () => dispatch({ type: "RESET" }),
+    nextPreset: () => dispatch(nextPreset())
   };
 };
 

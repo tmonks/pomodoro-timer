@@ -6,6 +6,7 @@ export default function Timer(props) {
   let secondsLeft = currentTime % 60;
 
   secondsLeft = secondsLeft.toString().padStart(2, "0");
+  minutesLeft = minutesLeft.toString().padStart(2, "0");
 
   let styles = props.running ? { color: "green" } : { color: "black" };
 
