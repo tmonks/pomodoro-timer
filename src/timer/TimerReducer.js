@@ -1,6 +1,9 @@
+const SECONDS = 60;
+// const SECONDS = 1;
+
 const initialState = {
   label: "Work",
-  timeLeft: 25 * 60,
+  // timeLeft: 25 * 60,
   timeLeft: 3,
   running: false,
   currentPreset: 0
@@ -11,10 +14,7 @@ const timerReducer = (state = initialState, action) => {
     case "SET_TIME":
       return { ...state, timeLeft: action.payload };
     case "TICK":
-      if (state.timeLeft > 0) {
-        return { ...state, timeLeft: state.timeLeft - 1 };
-      }
-      return state;
+      return { ...state, timeLeft: state.timeLeft - 1 };
     case "PLAY":
       return { ...state, running: true };
     case "PAUSE":

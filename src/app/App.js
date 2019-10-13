@@ -26,9 +26,11 @@ function App(props) {
     props.reset();
   };
 
+  /*
   if (props.running && props.timeLeft === 0) {
     props.nextPreset();
   }
+  */
 
   return (
     <div className="app">
@@ -45,6 +47,7 @@ function App(props) {
   );
 }
 
+/* redux-thunk action creator to switch to next preset */
 const nextPreset = () => {
   return (dispatch, getState) => {
     const { timer, presets } = getState();
@@ -61,6 +64,17 @@ const nextPreset = () => {
   };
 };
 
+const tick = () => {
+  return (dispatch, getState) => {
+    const { timer } = getState();
+    if (timer.timeLeft === 0) {
+      dispatch(nextPreset());
+    } else {
+      dispatch({ type: "TICK" });
+    }
+  };
+};
+
 const mapStateToProps = state => {
   return {
     label: state.timer.label,
@@ -72,7 +86,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    tick: () => dispatch({ type: "TICK" }),
+    tick: () => dispatch(tick()),
     start: () => dispatch({ type: "PLAY" }),
     stop: () => dispatch({ type: "PAUSE" }),
     reset: () => dispatch({ type: "RESET" }),
