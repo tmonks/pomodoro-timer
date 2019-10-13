@@ -1,11 +1,11 @@
 const initialState = [
   {
     label: "Work",
-    value: 1
+    value: 25
   },
   {
     label: "Break",
-    value: 1
+    value: 5
   }
 ];
 

@@ -53,11 +53,13 @@ const nextPreset = () => {
     const { timer, presets } = getState();
     let nextPreset = (timer.currentPreset + 1) % presets.length;
     let lastPreset = presets.length - 1;
-    console.log("setting preset to: " + lastPreset);
+    console.log(
+      "setting preset to: " + nextPreset + " - " + presets[nextPreset].label
+    );
 
     dispatch({
       type: "NEXT_PRESET",
-      index: lastPreset,
+      index: nextPreset,
       timeLeft: presets[nextPreset].value * 60,
       label: presets[nextPreset].label
     });
@@ -67,7 +69,7 @@ const nextPreset = () => {
 const tick = () => {
   return (dispatch, getState) => {
     const { timer } = getState();
-    if (timer.timeLeft === 0) {
+    if (timer.timeLeft <= 0) {
       dispatch(nextPreset());
     } else {
       dispatch({ type: "TICK" });

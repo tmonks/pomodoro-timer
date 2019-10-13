@@ -3,8 +3,8 @@ const SECONDS = 60;
 
 const initialState = {
   label: "Work",
-  // timeLeft: 25 * 60,
-  timeLeft: 3,
+  timeLeft: 25 * 60,
+  // timeLeft: 3,
   running: false,
   currentPreset: 0
 };
@@ -30,7 +30,13 @@ const timerReducer = (state = initialState, action) => {
       }
       return state;
     case "RESET":
-      return { ...state, timeLeft: initialState.timeLeft, running: false };
+      return {
+        ...state,
+        timeLeft: initialState.timeLeft,
+        running: false,
+        currentPreset: 0,
+        label: initialState.label
+      };
     case "NEXT_PRESET":
       return {
         ...state,
