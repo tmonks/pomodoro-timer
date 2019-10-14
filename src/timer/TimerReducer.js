@@ -15,20 +15,20 @@ const timerReducer = (state = initialState, action) => {
       return { ...state, timeLeft: action.payload };
     case "TICK":
       return { ...state, timeLeft: state.timeLeft - 1 };
-    case "PLAY":
+    case "START":
       return { ...state, running: true };
-    case "PAUSE":
+    case "STOP":
       return { ...state, running: false };
-    case "INCREMENT":
-      if (action.id === 0 && state.timeLeft < 60 * 60) {
-        return { ...state, timeLeft: state.timeLeft + 60 };
-      }
-      return state;
-    case "DECREMENT":
-      if (action.id === 0) {
-        return { ...state, timeLeft: state.timeLeft - 60 };
-      }
-      return state;
+    // case "INCREMENT":
+    //   if (action.id === 0 && state.timeLeft < 60 * 60) {
+    //     return { ...state, timeLeft: state.timeLeft + 60 };
+    //   }
+    //   return state;
+    // case "DECREMENT":
+    //   if (action.id === 0) {
+    //     return { ...state, timeLeft: state.timeLeft - 60 };
+    //   }
+    //   return state;
     case "RESET":
       return {
         ...state,
