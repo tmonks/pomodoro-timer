@@ -12,24 +12,20 @@ const initialState = [
 const presetReducer = (state = initialState, action) => {
   switch (action.type) {
     case "INCREMENT":
-      if (state[action.id].value < 60) {
-        return state.map((preset, index) => {
-          if (index === action.id) {
-            return { ...preset, value: preset.value + 1 };
-          }
-          return preset;
-        });
-      }
+      return state.map((preset, index) => {
+        if (index === action.id) {
+          return { ...preset, value: preset.value + 1 };
+        }
+        return preset;
+      });
       return state;
     case "DECREMENT":
-      if (state[action.id].value > 1) {
-        return state.map((preset, index) => {
-          if (action.id === index) {
-            return { ...preset, value: preset.value - 1 };
-          }
-          return preset;
-        });
-      }
+      return state.map((preset, index) => {
+        if (action.id === index) {
+          return { ...preset, value: preset.value - 1 };
+        }
+        return preset;
+      });
       return state;
     case "RESET":
       return state.map((preset, index) => {

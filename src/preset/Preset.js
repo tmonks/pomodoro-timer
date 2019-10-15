@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 
-function Preset(props) {
+export default function Preset(props) {
   return (
     <div>
       <div id={props.id + "-label"}>{props.label}</div>
@@ -15,7 +15,7 @@ function Preset(props) {
     </div>
   );
 }
-
+/*
 const mapStateToProps = (state, ownProps) => {
   return {
     label: state.presets[ownProps.index].label,
@@ -25,8 +25,8 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    increment: () => dispatch({ type: "INCREMENT", id: ownProps.index }),
-    decrement: () => dispatch({ type: "DECREMENT", id: ownProps.index })
+    // increment: () => dispatch({ type: "INCREMENT", id: ownProps.index }),
+    // decrement: () => dispatch({ type: "DECREMENT", id: ownProps.index })
   };
 };
 
@@ -34,3 +34,4 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(Preset);
+*/
