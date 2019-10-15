@@ -1,42 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./App.css";
 import Timer from "../timer/Timer";
 import Preset from "../preset/Preset";
 import { connect } from "react-redux";
+import soundfile from "../assets/Twin-bell-alarm-clock.mp3";
 
 let timerID = null;
+let audioRef = null;
 const MILLISECONDS = 1000;
+// const MILLISECONDS = 30;
 
 function App(props) {
-  /*
-  const toggleTimer = () => {
-    if (!props.running) {
-      timerID = setInterval(() => {
-        props.tick();
-      }, 1000);
-      props.start();
-    } else {
-      clearInterval(timerID);
-      props.stop();
-    }
-  };
-  */
-
-  /*
-  const resetTimer = () => {
-    if (props.running) {
-      clearInterval(timerID);
-    }
-    props.reset();
-  };
-  */
-
-  /*
-  if (props.running && props.timeLeft === 0) {
-    props.nextPreset();
-  }
-  */
-
   return (
     <div className="app">
       <Preset
@@ -62,6 +36,13 @@ function App(props) {
         toggle={props.toggle}
         reset={props.reset}
       />
+      <audio
+        ref={input => {
+          audioRef = input;
+        }}
+        src={soundfile}
+        id="beep"
+      />
     </div>
   );
 }
@@ -85,9 +66,19 @@ const tick = () => {
   return (dispatch, getState) => {
     const { timer } = getState();
     if (timer.timeLeft <= 0) {
-      // dispatch(nextPreset());
       const { timer, presets } = getState();
       let nextPreset = (timer.currentPreset + 1) % presets.length;
+      let audioPromise = audioRef.play();
+
+      if (audioPromise !== undefined) {
+        audioPromise
+          .then(() => {
+            console.log("RIIIINGG!");
+          })
+          .catch(error => {
+            console.log("audio playback failed: " + error);
+          });
+      }
 
       dispatch({
         type: "NEXT_PRESET",
@@ -144,6 +135,18 @@ const toggleTimerAction = () => {
 const resetAction = () => {
   return (dispatch, getState) => {
     const { timer } = getState();
+    let pausePromise = audioRef.pause();
+    if (pausePromise !== undefined) {
+      pausePromise
+        .then(() => {
+          console.log("stopping audio");
+        })
+        .catch(error => {
+          console.log("error stopping audio: " + error);
+        });
+    }
+    audioRef.currentTime = 0;
+    // audioRef.load();
     if (timer.running) {
       clearInterval(timerID);
     }

@@ -4,7 +4,7 @@ const SECONDS = 60;
 const initialState = {
   label: "Work",
   timeLeft: 25 * 60,
-  // timeLeft: 3,
+  // timeLeft: 5,
   running: false,
   currentPreset: 0
 };
