@@ -11,7 +11,7 @@ function App(props) {
     if (!props.running) {
       timerID = setInterval(() => {
         props.tick();
-      }, "1000");
+      }, 1000);
       props.start();
     } else {
       clearInterval(timerID);
@@ -79,7 +79,7 @@ const tick = () => {
 
 const mapStateToProps = state => {
   return {
-    label: state.timer.label,
+    label: state.presets[state.timer.currentPreset].label,
     timeLeft: state.timer.timeLeft,
     running: state.timer.running,
     presets: state.presets
