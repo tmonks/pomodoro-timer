@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import "./App.css";
+import "./App.scss";
 import Timer from "../timer/Timer";
 import Preset from "../preset/Preset";
 import { connect } from "react-redux";
@@ -12,37 +12,40 @@ const MILLISECONDS = 1000;
 
 function App(props) {
   return (
-    <div className="app">
-      <Preset
-        index={0}
-        id="session"
-        increment={() => props.increment(0)}
-        decrement={() => props.decrement(0)}
-        label={props.presets[0].label}
-        value={props.presets[0].value}
-      />
-      <Preset
-        index={1}
-        id="break"
-        increment={() => props.increment(1)}
-        decrement={() => props.decrement(1)}
-        label={props.presets[1].label}
-        value={props.presets[1].value}
-      />
-      <Timer
-        label={props.label}
-        timeLeft={props.timeLeft}
-        running={props.running}
-        toggle={props.toggle}
-        reset={props.reset}
-      />
-      <audio
-        ref={input => {
-          audioRef = input;
-        }}
-        src={soundfile}
-        id="beep"
-      />
+    <div>
+      <h1>POMODORO TIMER</h1>
+      <div className="app">
+        <Preset
+          index={0}
+          id="session"
+          increment={() => props.increment(0)}
+          decrement={() => props.decrement(0)}
+          label={props.presets[0].label}
+          value={props.presets[0].value}
+        />
+        <Preset
+          index={1}
+          id="break"
+          increment={() => props.increment(1)}
+          decrement={() => props.decrement(1)}
+          label={props.presets[1].label}
+          value={props.presets[1].value}
+        />
+        <Timer
+          label={props.label}
+          timeLeft={props.timeLeft}
+          running={props.running}
+          toggle={props.toggle}
+          reset={props.reset}
+        />
+        <audio
+          ref={input => {
+            audioRef = input;
+          }}
+          src={soundfile}
+          id="beep"
+        />
+      </div>
     </div>
   );
 }

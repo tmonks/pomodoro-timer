@@ -1,37 +1,25 @@
 import React from "react";
-import { connect } from "react-redux";
+import "./Preset.scss";
 
 export default function Preset(props) {
+  // const paddedValue = props.value.toString().padStart(2, "0");
+
   return (
-    <div>
-      <div id={props.id + "-label"}>{props.label}</div>
-      <button onClick={props.decrement} id={props.id + "-decrement"}>
-        &lt;
-      </button>
-      <span id={props.id + "-length"}>{props.value}</span>
-      <button onClick={props.increment} id={props.id + "-increment"}>
-        &gt;
-      </button>
+    <div className="preset-container">
+      <div className="arrow" onClick={props.decrement} id={props.id + "-decrement"}>
+        ◄
+      </div>
+      <div className="values">
+        <div id={props.id + "-length"} className="preset-value">
+          {props.value}
+        </div>
+        <div id={props.id + "-label"} className="preset-label">
+          {props.label}
+        </div>
+      </div>
+      <div className="arrow" onClick={props.increment} id={props.id + "-increment"}>
+        ►
+      </div>
     </div>
   );
 }
-/*
-const mapStateToProps = (state, ownProps) => {
-  return {
-    label: state.presets[ownProps.index].label,
-    value: state.presets[ownProps.index].value
-  };
-};
-
-const mapDispatchToProps = (dispatch, ownProps) => {
-  return {
-    // increment: () => dispatch({ type: "INCREMENT", id: ownProps.index }),
-    // decrement: () => dispatch({ type: "DECREMENT", id: ownProps.index })
-  };
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Preset);
-*/

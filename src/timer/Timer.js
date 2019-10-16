@@ -1,4 +1,5 @@
 import React from "react";
+import "./Timer.scss";
 
 export default function Timer(props) {
   let currentTime = props.timeLeft;
@@ -8,15 +9,15 @@ export default function Timer(props) {
   secondsLeft = secondsLeft.toString().padStart(2, "0");
   minutesLeft = minutesLeft.toString().padStart(2, "0");
 
-  let styles = props.running ? { color: "green" } : { color: "black" };
+  let styles = props.running ? { color: "white" } : { color: "lightgray" };
 
   return (
-    <div>
-      <h3 id="timer-label">{props.label}</h3>
-      <h1 id="time-left" style={styles}>
-        {minutesLeft + ":" + secondsLeft}
-      </h1>
-      <button id="start_stop" onClick={props.toggle}>
+    <div className="timer-container">
+      <div className="timer-display">
+        <div id="time-left">{minutesLeft + ":" + secondsLeft}</div>
+        <div id="timer-label">{props.label}</div>
+      </div>
+      <button id="start_stop" onClick={props.toggle} className="">
         {props.running ? "Pause" : "Play"}
       </button>
       <button id="reset" onClick={props.reset}>
