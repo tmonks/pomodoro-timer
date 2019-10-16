@@ -1,0 +1,22 @@
+.preset-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  cursor: default;
+  margin: 0.75em;
+  // width: 50%;
+}
+
+.arrow {
+  font-size: 2em;
+  cursor: pointer;
+}
+
+.preset-label {
+  font-size: 0.9em;
+}
+
+.preset-value {
+  font-size: 2em;
+  margin: 0 7px;
+}

@@ -1,0 +1,29 @@
+#time-left {
+  color: white;
+  font-size: 3.5em;
+}
+
+.timer-display {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  border: 10px solid white;
+}
+
+.timer-container > button {
+  border: none;
+  border-radius: 50%;
+  color: #3ec1d3;
+  height: 50px;
+  width: 50px;
+  background-color: white;
+  margin: 1em;
+  cursor: pointer;
+}
+
+.timer-container > button:focus {
+  outline: 0;
+}
