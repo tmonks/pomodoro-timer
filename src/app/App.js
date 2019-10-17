@@ -5,6 +5,9 @@ import Preset from "../preset/Preset";
 import { connect } from "react-redux";
 import soundfile from "../assets/Twin-bell-alarm-clock.mp3";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlayCircle, faPauseCircle, faUndoAlt } from "@fortawesome/free-solid-svg-icons";
+
 let timerID = null;
 let audioRef = null;
 const MILLISECONDS = 1000;
@@ -15,22 +18,27 @@ function App(props) {
     <div>
       <h1>POMODORO TIMER</h1>
       <div className="app">
-        <Preset
-          index={0}
-          id="session"
-          increment={() => props.increment(0)}
-          decrement={() => props.decrement(0)}
-          label={props.presets[0].label}
-          value={props.presets[0].value}
-        />
-        <Preset
-          index={1}
-          id="break"
-          increment={() => props.increment(1)}
-          decrement={() => props.decrement(1)}
-          label={props.presets[1].label}
-          value={props.presets[1].value}
-        />
+        <div className="preset-container">
+          <Preset
+            index={0}
+            id="session"
+            increment={() => props.increment(0)}
+            decrement={() => props.decrement(0)}
+            label={props.presets[0].label}
+            value={props.presets[0].value}
+          />
+          {/* <button id="reset" onClick={props.reset}>
+            Reset
+          </button> */}
+          <Preset
+            index={1}
+            id="break"
+            increment={() => props.increment(1)}
+            decrement={() => props.decrement(1)}
+            label={props.presets[1].label}
+            value={props.presets[1].value}
+          />
+        </div>
         <Timer
           label={props.label}
           timeLeft={props.timeLeft}
@@ -38,6 +46,17 @@ function App(props) {
           toggle={props.toggle}
           reset={props.reset}
         />
+        <div id="reset" onClick={props.reset}>
+          <FontAwesomeIcon icon={faUndoAlt} />
+        </div>
+        {/* <FontAwesomeIcon
+          id="start_stop"
+          onClick={props.toggle}
+          icon={props.running ? faPauseCircle : faPlayCircle}
+        /> */}
+        {/* <button id="start_stop" onClick={props.toggle}>
+          {props.running ? "Pause" : "Play"}
+        </button> */}
         <audio
           ref={input => {
             audioRef = input;

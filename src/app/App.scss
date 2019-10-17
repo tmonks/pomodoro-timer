@@ -24,7 +24,7 @@ h1 {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  max-width: 300px;
+  max-width: 400px;
   display: flex;
   justify-content: center;
   margin: 0 auto;
@@ -32,4 +32,29 @@ h1 {
   padding: 20px;
   text-align: center;
   // border: 3px solid white;
+}
+
+.preset-container {
+  display: flex;
+}
+
+button {
+  margin: auto;
+  border: none;
+  border-radius: 50%;
+  color: #3ec1d3;
+  height: 50px;
+  width: 50px;
+  background-color: white;
+  cursor: pointer;
+}
+
+button:focus {
+  outline: 0;
+}
+
+#reset {
+  font-size: 2.5em;
+  margin: 40px auto 0 auto;
+  cursor: pointer;
 }

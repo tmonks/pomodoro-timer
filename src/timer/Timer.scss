@@ -1,29 +1,47 @@
+.timer-container {
+  flex-basis: 100%;
+}
+
+#timer-label {
+  position: relative;
+  top: 0.5em;
+  height: 30px;
+  font-size: 1.3em;
+}
+
 #time-left {
   color: white;
   font-size: 3.5em;
 }
 
 .timer-display {
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-evenly;
+  align-items: center;
   width: 200px;
   height: 200px;
   border-radius: 50%;
-  border: 10px solid white;
+  border: 12px solid white;
 }
 
-.timer-container > button {
-  border: none;
-  border-radius: 50%;
-  color: #3ec1d3;
-  height: 50px;
-  width: 50px;
-  background-color: white;
-  margin: 1em;
+// .timer-container > button {
+//   border: none;
+//   border-radius: 50%;
+//   color: #3ec1d3;
+//   height: 50px;
+//   width: 50px;
+//   background-color: white;
+//   margin: 1em;
+//   cursor: pointer;
+// }
+
+// .timer-container > button:focus {
+//   outline: 0;
+// }
+
+#start_stop {
+  font-size: 2.5em;
   cursor: pointer;
-}
-
-.timer-container > button:focus {
-  outline: 0;
 }
