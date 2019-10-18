@@ -11,7 +11,7 @@ import { Helmet } from "react-helmet";
 
 let timerID = null;
 let audioRef = null;
-const MILLISECONDS = 1000;
+const MILLISECONDS = 50;
 // const MILLISECONDS = 30;
 
 const formatTime = seconds => {
@@ -25,6 +25,8 @@ const formatTime = seconds => {
 
 function App(props) {
   const formattedTimeLeft = formatTime(props.timeLeft);
+  const percent = props.timeLeft / props.startTime;
+  console.log(percent + ": " + props.startTime + " / " + props.timeLeft);
 
   return (
     <div>
@@ -60,6 +62,7 @@ function App(props) {
           running={props.running}
           toggle={props.toggle}
           reset={props.reset}
+          percent={percent}
         />
         <div id="reset" onClick={props.reset}>
           <FontAwesomeIcon icon={faUndoAlt} />
@@ -194,6 +197,7 @@ const resetAction = () => {
 const mapStateToProps = state => {
   return {
     label: state.presets[state.timer.currentPreset].label,
+    startTime: state.presets[state.timer.currentPreset].value * 60,
     timeLeft: state.timer.timeLeft,
     running: state.timer.running,
     presets: state.presets

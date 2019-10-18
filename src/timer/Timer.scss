@@ -1,5 +1,6 @@
 .timer-container {
   flex-basis: 100%;
+  position: relative;
 }
 
 #timer-label {
@@ -22,8 +23,28 @@
   align-items: center;
   width: 200px;
   height: 200px;
-  border-radius: 50%;
-  border: 12px solid white;
+
+  position: absolute;
+  top: 0;
+  left: 100px;
+
+  box-sizing: border-box;
+
+  // border-radius: 50%;
+  // border: 12px solid white;
+}
+
+.progress {
+  transform: rotate(-90deg);
+}
+
+.progress-meter {
+  stroke: white;
+}
+
+.progress-value {
+  stroke: #29a4b5;
+  stroke-linecap: round;
 }
 
 // .timer-container > button {

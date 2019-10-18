@@ -1,7 +1,7 @@
 const initialState = [
   {
     label: "Work",
-    value: 25
+    value: 1
   },
   {
     label: "Break",

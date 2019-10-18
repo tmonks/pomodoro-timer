@@ -17,11 +17,7 @@ export default function Preset(props) {
     <div className="preset-container">
       <div className="arrow" onClick={props.decrement} id={props.id + "-decrement"}>
         {/* ◄ */}
-        <FontAwesomeIcon
-          icon={faCaretSquareLeft}
-          onClick={props.decrement}
-          id={props.id + "-decrement"}
-        />
+        <FontAwesomeIcon icon={faCaretSquareLeft} />
       </div>
       <div className="values">
         <div id={props.id + "-length"} className="preset-value">
