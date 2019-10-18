@@ -7,15 +7,30 @@ import soundfile from "../assets/Twin-bell-alarm-clock.mp3";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlayCircle, faPauseCircle, faUndoAlt } from "@fortawesome/free-solid-svg-icons";
+import { Helmet } from "react-helmet";
 
 let timerID = null;
 let audioRef = null;
 const MILLISECONDS = 1000;
 // const MILLISECONDS = 30;
 
+const formatTime = seconds => {
+  let minutesLeft = Math.floor(seconds / 60);
+  let secondsLeft = seconds % 60;
+
+  secondsLeft = secondsLeft.toString().padStart(2, "0");
+  minutesLeft = minutesLeft.toString().padStart(2, "0");
+  return minutesLeft + ":" + secondsLeft;
+};
+
 function App(props) {
+  const formattedTimeLeft = formatTime(props.timeLeft);
+
   return (
     <div>
+      <Helmet>
+        <title>{props.running ? props.label + ": " + formattedTimeLeft : "Pomodoro Timer"}</title>
+      </Helmet>
       <h1>POMODORO TIMER</h1>
       <div className="app">
         <div className="preset-container">
@@ -41,7 +56,7 @@ function App(props) {
         </div>
         <Timer
           label={props.label}
-          timeLeft={props.timeLeft}
+          timeLeft={formattedTimeLeft}
           running={props.running}
           toggle={props.toggle}
           reset={props.reset}
