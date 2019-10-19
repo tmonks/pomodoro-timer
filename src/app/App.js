@@ -11,7 +11,7 @@ import { Helmet } from "react-helmet";
 
 let timerID = null;
 let audioRef = null;
-const MILLISECONDS = 50;
+const MILLISECONDS = 1000;
 // const MILLISECONDS = 30;
 
 const formatTime = seconds => {
