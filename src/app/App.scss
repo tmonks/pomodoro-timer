@@ -14,6 +14,11 @@ body {
                                     supported by Chrome and Opera */
 }
 
+body,
+#root {
+  margin: 0;
+  height: 100vh;
+}
 h1 {
   font-size: 2.5em;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
@@ -24,20 +29,29 @@ h1 {
   display: flex;
   flex-direction: column;
   max-width: 400px;
-  justify-content: center;
+  min-width: 200px;
+  max-height: 500px;
+  height: 100%;
+  justify-content: space-between;
   align-items: center;
   margin: 0 auto;
-  border-radius: 10px;
-  padding: 20px;
   text-align: center;
-  // border: 3px solid white;
+  // border: 1px solid white;
+  box-sizing: border-box;
+}
+
+h1 {
+  // font-size: calc(2em + 1vw);
+  font-size: 2em;
 }
 
 .presets {
   display: flex;
   flex-direction: row;
-  justify-content: center;
-  margin: 0.75em;
+  justify-content: space-around;
+  max-width: 300px;
+  width: 100%;
+  margin-bottom: -10px;
 }
 
 button {
@@ -57,6 +71,6 @@ button:focus {
 
 #reset {
   font-size: 2.5em;
-  margin: 40px auto 0 auto;
+  // margin: 40px auto 0 auto;
   cursor: pointer;
 }

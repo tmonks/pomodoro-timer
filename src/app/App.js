@@ -35,61 +35,60 @@ function App(props) {
   }, []);
 
   return (
-    <div>
+    <div className="app">
       <Helmet>
         <title>{props.running ? props.label + ": " + formattedTimeLeft : "Pomodoro Timer"}</title>
       </Helmet>
       <h1>POMODORO TIMER</h1>
-      <div className="app">
-        <div className="presets">
-          <Preset
-            index={0}
-            id="session"
-            increment={() => props.increment(0)}
-            decrement={() => props.decrement(0)}
-            label={props.presets[0].label}
-            value={props.presets[0].value}
-            // active={true}
-          />
-          {/* <button id="reset" onClick={props.reset}>
+      <div className="presets">
+        <Preset
+          index={0}
+          id="session"
+          increment={() => props.increment(0)}
+          decrement={() => props.decrement(0)}
+          label={props.presets[0].label}
+          value={props.presets[0].value}
+          active={props.running && props.currentPreset == 0}
+        />
+        {/* <button id="reset" onClick={props.reset}>
             Reset
           </button> */}
-          <Preset
-            index={1}
-            id="break"
-            increment={() => props.increment(1)}
-            decrement={() => props.decrement(1)}
-            label={props.presets[1].label}
-            value={props.presets[1].value}
-          />
-        </div>
-        <Timer
-          label={props.label}
-          timeLeft={formattedTimeLeft}
-          running={props.running}
-          toggle={props.toggle}
-          reset={props.reset}
-          percent={percent}
+        <Preset
+          index={1}
+          id="break"
+          increment={() => props.increment(1)}
+          decrement={() => props.decrement(1)}
+          label={props.presets[1].label}
+          value={props.presets[1].value}
+          active={props.running && props.currentPreset == 1}
         />
-        <div id="reset" onClick={props.reset}>
-          <FontAwesomeIcon icon={faUndoAlt} />
-        </div>
-        {/* <FontAwesomeIcon
+      </div>
+      <Timer
+        label={props.label}
+        timeLeft={formattedTimeLeft}
+        running={props.running}
+        toggle={props.toggle}
+        reset={props.reset}
+        percent={percent}
+      />
+      <div id="reset" onClick={props.reset}>
+        <FontAwesomeIcon icon={faUndoAlt} />
+      </div>
+      {/* <FontAwesomeIcon
           id="start_stop"
           onClick={props.toggle}
           icon={props.running ? faPauseCircle : faPlayCircle}
         /> */}
-        {/* <button id="start_stop" onClick={props.toggle}>
+      {/* <button id="start_stop" onClick={props.toggle}>
           {props.running ? "Pause" : "Play"}
         </button> */}
-        <audio
-          ref={input => {
-            audioRef = input;
-          }}
-          src={soundfile}
-          id="beep"
-        />
-      </div>
+      <audio
+        ref={input => {
+          audioRef = input;
+        }}
+        src={soundfile}
+        id="beep"
+      />
     </div>
   );
 }
@@ -142,10 +141,10 @@ const tick = () => {
 const incrementAction = index => {
   return (dispatch, getState) => {
     const { presets, timer } = getState();
-    if (!timer.running && presets[index].value < 60) {
-      /* if it's the first timer being updated, also set the timer's time to match */
-      if (index === 0) {
-        dispatch({ type: "SET_TIME", payload: (presets[0].value + 1) * 60 });
+    if (presets[index].value < 60) {
+      /* if it's the current timer being updated, also set the timer's time to match */
+      if (index === timer.currentPreset) {
+        dispatch({ type: "SET_TIME", payload: (presets[index].value + 1) * 60 });
       }
       dispatch({ type: "INCREMENT", id: index });
     }
@@ -155,8 +154,9 @@ const incrementAction = index => {
 const decrementAction = index => {
   return (dispatch, getState) => {
     const { presets, timer } = getState();
-    if (!timer.running && presets[index].value > 1) {
-      if (index === 0) {
+    if (presets[index].value > 1) {
+      /* if it's the current timer being updated, also set the timer's time to match */
+      if (index === timer.currentPreset) {
         dispatch({ type: "SET_TIME", payload: (presets[index].value - 1) * 60 });
       }
       dispatch({ type: "DECREMENT", id: index });
@@ -207,7 +207,8 @@ const mapStateToProps = state => {
     startTime: state.presets[state.timer.currentPreset].value * 60,
     timeLeft: state.timer.timeLeft,
     running: state.timer.running,
-    presets: state.presets
+    presets: state.presets,
+    currentPreset: state.timer.currentPreset
   };
 };
 

@@ -13,15 +13,23 @@ import {
 export default function Preset(props) {
   // const paddedValue = props.value.toString().padStart(2, "0");
 
-  const activeStyle = {
+  const activeStyleContainer = {
     borderBottom: "4px solid white"
   };
-  console.log("Preset active? " + props.active);
+
+  const activeStyleArrow = {
+    cursor: "default",
+    opacity: 0.25
+  };
 
   return (
-    <div className="preset-container" style={props.active ? activeStyle : null}>
-      <div className="arrow" onClick={props.decrement} id={props.id + "-decrement"}>
-        {/* ◄ */}
+    <div className="preset-container" style={props.active ? activeStyleContainer : null}>
+      <div
+        className="arrow"
+        onClick={props.active ? null : props.decrement}
+        id={props.id + "-decrement"}
+        style={props.active ? activeStyleArrow : null}
+      >
         <FontAwesomeIcon icon={faCaretSquareLeft} />
       </div>
       <div className="values">
@@ -32,8 +40,12 @@ export default function Preset(props) {
           {props.label}
         </div>
       </div>
-      <div className="arrow" onClick={props.increment} id={props.id + "-increment"}>
-        {/* ► */}
+      <div
+        className="arrow"
+        onClick={props.active ? null : props.increment}
+        id={props.id + "-increment"}
+        style={props.active ? activeStyleArrow : null}
+      >
         <FontAwesomeIcon icon={faCaretSquareRight} />
       </div>
     </div>
