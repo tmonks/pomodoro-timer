@@ -26,7 +26,13 @@ const formatTime = seconds => {
 function App(props) {
   const formattedTimeLeft = formatTime(props.timeLeft);
   const percent = props.timeLeft / props.startTime;
-  console.log(percent + ": " + props.startTime + " / " + props.timeLeft);
+
+  /* clear interval on unmount */
+  useEffect(() => {
+    return () => {
+      clearInterval(timerID);
+    };
+  }, []);
 
   return (
     <div>
@@ -35,7 +41,7 @@ function App(props) {
       </Helmet>
       <h1>POMODORO TIMER</h1>
       <div className="app">
-        <div className="preset-container">
+        <div className="presets">
           <Preset
             index={0}
             id="session"
@@ -43,6 +49,7 @@ function App(props) {
             decrement={() => props.decrement(0)}
             label={props.presets[0].label}
             value={props.presets[0].value}
+            // active={true}
           />
           {/* <button id="reset" onClick={props.reset}>
             Reset

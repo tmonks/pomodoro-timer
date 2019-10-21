@@ -13,8 +13,13 @@ import {
 export default function Preset(props) {
   // const paddedValue = props.value.toString().padStart(2, "0");
 
+  const activeStyle = {
+    borderBottom: "4px solid white"
+  };
+  console.log("Preset active? " + props.active);
+
   return (
-    <div className="preset-container">
+    <div className="preset-container" style={props.active ? activeStyle : null}>
       <div className="arrow" onClick={props.decrement} id={props.id + "-decrement"}>
         {/* ◄ */}
         <FontAwesomeIcon icon={faCaretSquareLeft} />

@@ -33,8 +33,11 @@ h1 {
   // border: 3px solid white;
 }
 
-.preset-container {
+.presets {
   display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 0.75em;
 }
 
 button {
