@@ -10,8 +10,10 @@
 }
 
 .arrow {
-  font-size: 2em;
+  font-size: 3em;
   cursor: pointer;
+  position: relative;
+  top: -5px;
 }
 
 .preset-label {
@@ -19,7 +21,7 @@
 }
 
 .preset-value {
-  font-size: 2em;
+  font-size: 2.2em;
   margin: 0 7px;
   width: 1.2em;
 }

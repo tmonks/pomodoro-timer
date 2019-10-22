@@ -35,7 +35,7 @@ export default function Preset(props) {
         id={props.id + "-decrement"}
         style={props.active ? activeStyleArrow : null}
       >
-        <FontAwesomeIcon icon={faChevronLeft} />
+        <FontAwesomeIcon icon={faCaretLeft} />
       </div>
       <div className="values">
         <div id={props.id + "-length"} className="preset-value">
@@ -51,7 +51,7 @@ export default function Preset(props) {
         id={props.id + "-increment"}
         style={props.active ? activeStyleArrow : null}
       >
-        <FontAwesomeIcon icon={faChevronRight} />
+        <FontAwesomeIcon icon={faCaretRight} />
       </div>
     </div>
   );

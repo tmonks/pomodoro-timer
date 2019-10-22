@@ -3,7 +3,7 @@ import "./App.scss";
 import Timer from "../timer/Timer";
 import Preset from "../preset/Preset";
 import { connect } from "react-redux";
-import soundfile from "../assets/Twin-bell-alarm-clock.mp3";
+import soundfile from "../assets/beep-beep-bopbop-bop-bop.mp3";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlayCircle, faPauseCircle, faUndoAlt } from "@fortawesome/free-solid-svg-icons";
