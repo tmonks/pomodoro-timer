@@ -30,6 +30,9 @@ function App(props) {
   /* clear interval on unmount */
   useEffect(() => {
     return () => {
+      // if (props.running) {
+      //   props.toggle();
+      // }
       clearInterval(timerID);
     };
   }, []);
@@ -71,7 +74,7 @@ function App(props) {
         reset={props.reset}
         percent={percent}
       />
-      <div id="reset" onClick={props.reset}>
+      <div id="reset" onClick={() => props.reset(audioRef)}>
         <FontAwesomeIcon icon={faUndoAlt} />
       </div>
       {/* <FontAwesomeIcon
@@ -108,13 +111,13 @@ const nextPreset = () => {
   };
 };
 
-const tick = () => {
+const tick = myAudioRef => {
   return (dispatch, getState) => {
     const { timer } = getState();
     if (timer.timeLeft <= 0) {
       const { timer, presets } = getState();
       let nextPreset = (timer.currentPreset + 1) % presets.length;
-      let audioPromise = audioRef.play();
+      let audioPromise = myAudioRef.play();
 
       if (audioPromise !== undefined) {
         audioPromise
@@ -164,12 +167,12 @@ const decrementAction = index => {
   };
 };
 
-const toggleTimerAction = () => {
+const toggleTimerAction = myAudioRef => {
   return (dispatch, getState) => {
     const { timer } = getState();
     if (!timer.running) {
       timerID = setInterval(() => {
-        dispatch(tick());
+        dispatch(tick(myAudioRef));
       }, MILLISECONDS);
       dispatch({ type: "START" });
     } else {
@@ -179,10 +182,10 @@ const toggleTimerAction = () => {
   };
 };
 
-const resetAction = () => {
+const resetAction = myAudioRef => {
   return (dispatch, getState) => {
     const { timer } = getState();
-    let pausePromise = audioRef.pause();
+    let pausePromise = myAudioRef.pause();
     if (pausePromise !== undefined) {
       pausePromise
         .then(() => {
@@ -192,7 +195,7 @@ const resetAction = () => {
           console.log("error stopping audio: " + error);
         });
     }
-    audioRef.currentTime = 0;
+    myAudioRef.currentTime = 0;
     // audioRef.load();
     if (timer.running) {
       clearInterval(timerID);
@@ -214,11 +217,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    tick: () => dispatch(tick()),
-    toggle: () => dispatch(toggleTimerAction()),
-    // start: () => dispatch({ type: "START" }),
-    // stop: () => dispatch({ type: "STOP" }),
-    reset: () => dispatch(resetAction()),
+    // tick: () => dispatch(tick(audioRef)),
+    toggle: () => dispatch(toggleTimerAction(audioRef)),
+    reset: () => dispatch(resetAction(audioRef)),
     nextPreset: () => dispatch(nextPreset()),
     increment: index => dispatch(incrementAction(index)),
     decrement: index => dispatch(decrementAction(index))
