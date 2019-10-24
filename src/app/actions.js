@@ -53,7 +53,10 @@ export const increment = index => {
     if (presets[index].value < 60) {
       /* if it's the current timer being updated, also set the timer's time to match */
       if (index === timer.currentPreset) {
-        dispatch({ type: "SET_TIME", payload: (presets[index].value + 1) * 60 });
+        dispatch({
+          type: "SET_TIME",
+          payload: (presets[index].value + 1) * 60
+        });
       }
       dispatch({ type: "INCREMENT", id: index });
     }
@@ -66,7 +69,10 @@ export const decrement = index => {
     if (presets[index].value > 1) {
       /* if it's the current timer being updated, also set the timer's time to match */
       if (index === timer.currentPreset) {
-        dispatch({ type: "SET_TIME", payload: (presets[index].value - 1) * 60 });
+        dispatch({
+          type: "SET_TIME",
+          payload: (presets[index].value - 1) * 60
+        });
       }
       dispatch({ type: "DECREMENT", id: index });
     }
@@ -107,5 +113,22 @@ export const reset = myAudioRef => {
       clearInterval(timerID);
     }
     dispatch({ type: "RESET" });
+  };
+};
+
+export const testPlay = () => {
+  return getState => {
+    const { timer } = getState();
+    console.log(timer.currentPreset);
+    // let playPromise = timer.audioRef.play();
+    // if (playPromise !== undefined) {
+    //   playPromise
+    //     .then(() => {
+    //       console.log("test play successful!");
+    //     })
+    //     .catch(error => {
+    //       console.log("test play NOT successful: " + error);
+    //     });
+    // }
   };
 };
