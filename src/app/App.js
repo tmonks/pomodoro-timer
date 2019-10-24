@@ -38,11 +38,7 @@ function App(props) {
   return (
     <div className="app">
       <Helmet>
-        <title>
-          {props.running
-            ? props.label + ": " + formattedTimeLeft
-            : "Pomodoro Timer"}
-        </title>
+        <title>{props.running ? props.label + ": " + formattedTimeLeft : "Pomodoro Timer"}</title>
       </Helmet>
       <h1>POMODORO TIMER</h1>
       <div className="presets">
@@ -76,15 +72,9 @@ function App(props) {
       <div id="reset" onClick={() => props.reset(audioRef)}>
         <FontAwesomeIcon icon={faUndoAlt} />
       </div>
-      <audio
-        ref={input => {
-          audioRef = input;
-        }}
-        src={soundfile}
-        id="beep"
-      />
-      <audio ref={props.setAudioRef} src={soundfile2} id="beep2" />
-      <button onClick={props.testPlay}>Test Play</button>
+      <audio ref={props.setAudioRef} src={soundfile} id="beep" />
+      {/* <audio ref={props.setAudioRef} src={soundfile2} id="beep2" /> */}
+      {/* <button onClick={props.testPlay}>Test Play</button> */}
     </div>
   );
 }
@@ -104,8 +94,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     // tick: () => dispatch(tick(audioRef)),
-    toggle: () => dispatch(actions.toggle(audioRef)),
-    reset: () => dispatch(actions.reset(audioRef)),
+    toggle: () => dispatch(actions.toggle()),
+    reset: () => dispatch(actions.reset()),
     nextPreset: () => dispatch(actions.nextPreset()),
     increment: index => dispatch(actions.increment(index)),
     decrement: index => dispatch(actions.decrement(index)),

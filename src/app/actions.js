@@ -1,4 +1,3 @@
-let timerID = null;
 const MILLISECONDS = 1000;
 // const MILLISECONDS = 30;
 
@@ -17,13 +16,13 @@ export const nextPreset = () => {
   };
 };
 
-export const tick = myAudioRef => {
+export const tick = () => {
   return (dispatch, getState) => {
     const { timer } = getState();
     if (timer.timeLeft <= 0) {
       const { timer, presets } = getState();
       let nextPreset = (timer.currentPreset + 1) % presets.length;
-      let audioPromise = myAudioRef.play();
+      let audioPromise = timer.audioRef.play();
 
       if (audioPromise !== undefined) {
         audioPromise
@@ -79,16 +78,17 @@ export const decrement = index => {
   };
 };
 
-export const toggle = myAudioRef => {
+export const toggle = () => {
   return (dispatch, getState) => {
     const { timer } = getState();
     if (!timer.running) {
-      timerID = setInterval(() => {
-        dispatch(tick(myAudioRef));
+      let intervalID = setInterval(() => {
+        dispatch(tick());
       }, MILLISECONDS);
       dispatch({ type: "START" });
+      dispatch({ type: "SET_INTERVAL", payload: intervalID });
     } else {
-      clearInterval(timerID);
+      clearInterval(timer.intervalID);
       dispatch({ type: "STOP" });
     }
   };
@@ -97,7 +97,7 @@ export const toggle = myAudioRef => {
 export const reset = myAudioRef => {
   return (dispatch, getState) => {
     const { timer } = getState();
-    let pausePromise = myAudioRef.pause();
+    let pausePromise = timer.audioRef.pause();
     if (pausePromise !== undefined) {
       pausePromise
         .then(() => {
@@ -107,10 +107,10 @@ export const reset = myAudioRef => {
           console.log("error stopping audio: " + error);
         });
     }
-    myAudioRef.currentTime = 0;
+    timer.audioRef.currentTime = 0;
     // audioRef.load();
     if (timer.running) {
-      clearInterval(timerID);
+      clearInterval(timer.intervalID);
     }
     dispatch({ type: "RESET" });
   };
