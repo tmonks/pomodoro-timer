@@ -117,18 +117,18 @@ export const reset = myAudioRef => {
 };
 
 export const testPlay = () => {
-  return getState => {
+  return (undefined, getState) => {
     const { timer } = getState();
-    console.log(timer.currentPreset);
-    // let playPromise = timer.audioRef.play();
-    // if (playPromise !== undefined) {
-    //   playPromise
-    //     .then(() => {
-    //       console.log("test play successful!");
-    //     })
-    //     .catch(error => {
-    //       console.log("test play NOT successful: " + error);
-    //     });
-    // }
+    // console.log(timer.currentPreset);
+    let playPromise = timer.audioRef.play();
+    if (playPromise !== undefined) {
+      playPromise
+        .then(() => {
+          console.log("test play successful!");
+        })
+        .catch(error => {
+          console.log("test play NOT successful: " + error);
+        });
+    }
   };
 };
