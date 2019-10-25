@@ -6,7 +6,7 @@ const initialState = {
   timeLeft: 25 * 60,
   // timeLeft: 5,
   running: false,
-  currentPreset: 0,
+  // currentPreset: 0,
   audioRef: null,
   intervalID: null
 };
@@ -42,7 +42,7 @@ const timerReducer = (state = initialState, action) => {
     case "NEXT_PRESET":
       return {
         ...state,
-        currentPreset: action.index,
+        newPreset: action.index,
         timeLeft: action.timeLeft,
         label: action.label
       };

@@ -78,12 +78,12 @@ function App(props) {
 
 const mapStateToProps = state => {
   return {
-    label: state.presets[state.timer.currentPreset].label,
-    startTime: state.presets[state.timer.currentPreset].value * 60,
+    label: state.presets[state.app.currentPreset].label,
+    startTime: state.presets[state.app.currentPreset].value * 60,
     timeLeft: state.timer.timeLeft,
     running: state.timer.running,
     presets: state.presets,
-    currentPreset: state.timer.currentPreset,
+    currentPreset: state.app.currentPreset,
     audioRef: state.timer.audioRef
   };
 };
