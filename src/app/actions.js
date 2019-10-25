@@ -1,21 +1,6 @@
 const MILLISECONDS = 1000;
 // const MILLISECONDS = 30;
 
-/* redux-thunk action creator to switch to next preset */
-export const nextPreset = () => {
-  return (dispatch, getState) => {
-    const { timer, presets } = getState();
-    let nextPreset = (timer.currentPreset + 1) % presets.length;
-
-    dispatch({
-      type: "NEXT_PRESET",
-      index: nextPreset,
-      timeLeft: presets[nextPreset].value * 60,
-      label: presets[nextPreset].label
-    });
-  };
-};
-
 export const tick = () => {
   return (dispatch, getState) => {
     const { timer } = getState();

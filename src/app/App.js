@@ -4,7 +4,6 @@ import Timer from "../timer/Timer";
 import Preset from "../preset/Preset";
 import { connect } from "react-redux";
 import soundfile from "../assets/beep-beep-bopbop-bop-bop.mp3";
-import soundfile2 from "../assets/Twin-bell-alarm-clock.mp3";
 import * as actions from "./actions";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -38,11 +37,7 @@ function App(props) {
   return (
     <div className="app">
       <Helmet>
-        <title>
-          {props.running
-            ? props.label + ": " + formattedTimeLeft
-            : "Pomodoro Timer"}
-        </title>
+        <title>{props.running ? props.label + ": " + formattedTimeLeft : "Pomodoro Timer"}</title>
       </Helmet>
       <h1>POMODORO TIMER</h1>
       <div className="presets">
@@ -77,8 +72,6 @@ function App(props) {
         <FontAwesomeIcon icon={faUndoAlt} />
       </div>
       <audio ref={props.setAudioRef} src={soundfile} id="beep" />
-      {/* <audio ref={props.setAudioRef} src={soundfile2} id="beep2" /> */}
-      {/* <button onClick={props.testPlay}>Test Play</button> */}
     </div>
   );
 }
@@ -97,10 +90,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    // tick: () => dispatch(tick(audioRef)),
     toggle: () => dispatch(actions.toggle()),
     reset: () => dispatch(actions.reset()),
-    nextPreset: () => dispatch(actions.nextPreset()),
     increment: index => dispatch(actions.increment(index)),
     decrement: index => dispatch(actions.decrement(index)),
     setAudioRef: audioRef => dispatch(actions.setAudioRef(audioRef))
