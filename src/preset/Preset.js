@@ -1,21 +1,13 @@
 import React from "react";
+import { connect } from "react-redux";
+
+import * as actions from "./PresetActions";
 import "./Preset.scss";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCaretSquareLeft,
-  faCaretSquareRight,
-  faCaretLeft,
-  faCaretRight,
-  faChevronCircleLeft,
-  faChevronCircleRight,
-  faChevronLeft,
-  faChevronRight,
-  faAngleLeft,
-  faAngleRight
-} from "@fortawesome/free-solid-svg-icons";
+import { faCaretLeft, faCaretRight } from "@fortawesome/free-solid-svg-icons";
 
-export default function Preset(props) {
+function Preset(props) {
   // const paddedValue = props.value.toString().padStart(2, "0");
 
   const activeStyleContainer = {
@@ -56,3 +48,23 @@ export default function Preset(props) {
     </div>
   );
 }
+
+const mapStateToProps = (state, ownProps) => {
+  return {
+    label: state.presets[ownProps.index].label,
+    value: state.presets[ownProps.index].value,
+    id: state.presets[ownProps.index].id
+  };
+};
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    increment: () => dispatch(actions.increment(ownProps.index)),
+    decrement: () => dispatch(actions.decrement(ownProps.index))
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Preset);

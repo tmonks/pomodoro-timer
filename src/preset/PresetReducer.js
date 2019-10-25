@@ -1,9 +1,11 @@
 const initialState = [
   {
+    id: "session",
     label: "Work",
-    value: 25 
+    value: 25
   },
   {
+    id: "break",
     label: "Break",
     value: 5
   }
