@@ -38,7 +38,11 @@ function App(props) {
   return (
     <div className="app">
       <Helmet>
-        <title>{props.running ? props.label + ": " + formattedTimeLeft : "Pomodoro Timer"}</title>
+        <title>
+          {props.running
+            ? props.label + ": " + formattedTimeLeft
+            : "Pomodoro Timer"}
+        </title>
       </Helmet>
       <h1>POMODORO TIMER</h1>
       <div className="presets">
@@ -99,8 +103,7 @@ const mapDispatchToProps = dispatch => {
     nextPreset: () => dispatch(actions.nextPreset()),
     increment: index => dispatch(actions.increment(index)),
     decrement: index => dispatch(actions.decrement(index)),
-    setAudioRef: input => dispatch({ type: "SET_AUDIO_REF", payload: input }),
-    testPlay: () => dispatch(actions.testPlay())
+    setAudioRef: audioRef => dispatch(actions.setAudioRef(audioRef))
   };
 };
 

@@ -108,7 +108,7 @@ export const reset = myAudioRef => {
         });
     }
     timer.audioRef.currentTime = 0;
-    // audioRef.load();
+
     if (timer.running) {
       clearInterval(timer.intervalID);
     }
@@ -116,19 +116,9 @@ export const reset = myAudioRef => {
   };
 };
 
-export const testPlay = () => {
-  return (undefined, getState) => {
-    const { timer } = getState();
-    // console.log(timer.currentPreset);
-    let playPromise = timer.audioRef.play();
-    if (playPromise !== undefined) {
-      playPromise
-        .then(() => {
-          console.log("test play successful!");
-        })
-        .catch(error => {
-          console.log("test play NOT successful: " + error);
-        });
-    }
+export const setAudioRef = audioRef => {
+  return {
+    type: "SET_AUDIO_REF",
+    payload: audioRef
   };
 };
