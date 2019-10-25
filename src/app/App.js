@@ -4,25 +4,15 @@ import Timer from "../timer/Timer";
 import Preset from "../preset/Preset";
 import { connect } from "react-redux";
 import soundfile from "../assets/beep-beep-bopbop-bop-bop.mp3";
-import * as actions from "./actions";
+import * as actions from "./AppActions";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUndoAlt } from "@fortawesome/free-solid-svg-icons";
-import { Helmet } from "react-helmet";
 
 let audioRef = null;
 
-const formatTime = seconds => {
-  let minutesLeft = Math.floor(seconds / 60);
-  let secondsLeft = seconds % 60;
-
-  secondsLeft = secondsLeft.toString().padStart(2, "0");
-  minutesLeft = minutesLeft.toString().padStart(2, "0");
-  return minutesLeft + ":" + secondsLeft;
-};
-
 function App(props) {
-  const formattedTimeLeft = formatTime(props.timeLeft);
+  // const formattedTimeLeft = formatTime(props.timeLeft);
   const percent = props.timeLeft / props.startTime;
 
   /* clear interval on unmount */
@@ -36,9 +26,6 @@ function App(props) {
 
   return (
     <div className="app">
-      <Helmet>
-        <title>{props.running ? props.label + ": " + formattedTimeLeft : "Pomodoro Timer"}</title>
-      </Helmet>
       <h1>POMODORO TIMER</h1>
       <div className="presets">
         <Preset
@@ -62,9 +49,9 @@ function App(props) {
       </div>
       <Timer
         label={props.label}
-        timeLeft={formattedTimeLeft}
-        running={props.running}
-        toggle={props.toggle}
+        // timeLeft={formattedTimeLeft}
+        // running={props.running}
+        // toggle={props.toggle}
         reset={props.reset}
         percent={percent}
       />
@@ -90,7 +77,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    toggle: () => dispatch(actions.toggle()),
+    // toggle: () => dispatch(actions.toggle()),
     reset: () => dispatch(actions.reset()),
     increment: index => dispatch(actions.increment(index)),
     decrement: index => dispatch(actions.decrement(index)),
