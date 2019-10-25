@@ -1,6 +1,7 @@
 export const reset = () => {
   return (dispatch, getState) => {
     const { timer } = getState();
+    /* TODO: handling audioRef would ideally be controlled by Timer */
     timer.audioRef.pause();
     timer.audioRef.currentTime = 0;
 

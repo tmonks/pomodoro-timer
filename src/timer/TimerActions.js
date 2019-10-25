@@ -3,10 +3,8 @@ const MILLISECONDS = 1000;
 
 export const tick = () => {
   return (dispatch, getState) => {
-    const { app, timer } = getState();
+    const { app, timer, presets } = getState();
     if (timer.timeLeft <= 0) {
-      const { timer, presets } = getState();
-      let nextPreset = (app.currentPreset + 1) % presets.length;
       let audioPromise = timer.audioRef.play();
 
       if (audioPromise !== undefined) {
@@ -14,6 +12,9 @@ export const tick = () => {
           console.log("audio playback failed: " + error);
         });
       }
+
+      /* TODO: handling next preset would ideally be handled by App */
+      let nextPreset = (app.currentPreset + 1) % presets.length;
 
       dispatch({
         type: "NEXT_PRESET",

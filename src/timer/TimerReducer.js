@@ -1,6 +1,3 @@
-const SECONDS = 60;
-// const SECONDS = 1;
-
 const initialState = {
   label: "Work",
   timeLeft: 25 * 60,
@@ -42,7 +39,7 @@ const timerReducer = (state = initialState, action) => {
     case "NEXT_PRESET":
       return {
         ...state,
-        newPreset: action.index,
+        // newPreset: action.index,
         timeLeft: action.timeLeft,
         label: action.label
       };
@@ -62,14 +59,3 @@ const timerReducer = (state = initialState, action) => {
 };
 
 export default timerReducer;
-
-/*
-  if (action.type === "PLAY") {
-    return action.time * 60;
-  } else if (action.type === "TICK") {
-    return state - 1;
-  } else {
-    return state;
-  }
-
-*/
