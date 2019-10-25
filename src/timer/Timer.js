@@ -13,7 +13,8 @@ function Timer(props) {
   const displaySize = 200;
   const strokeWidth = 12;
   const strokeLength = displaySize * Math.PI;
-  const strokeOffset = strokeLength - strokeLength * (1 - props.percent);
+  const percent = props.timeLeft / props.startTime;
+  const strokeOffset = strokeLength - strokeLength * (1 - percent);
 
   const formatTime = seconds => {
     let minutesLeft = Math.floor(seconds / 60);

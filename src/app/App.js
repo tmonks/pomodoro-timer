@@ -13,7 +13,6 @@ let audioRef = null;
 
 function App(props) {
   // const formattedTimeLeft = formatTime(props.timeLeft);
-  const percent = props.timeLeft / props.startTime;
 
   /* clear interval on unmount */
   useEffect(() => {
@@ -52,8 +51,8 @@ function App(props) {
         // timeLeft={formattedTimeLeft}
         // running={props.running}
         // toggle={props.toggle}
+        startTime={props.startTime}
         reset={props.reset}
-        percent={percent}
       />
       <div id="reset" onClick={() => props.reset(audioRef)}>
         <FontAwesomeIcon icon={faUndoAlt} />
