@@ -31,7 +31,11 @@ function Timer(props) {
     <div className="timer-container">
       {" "}
       <Helmet>
-        <title>{props.running ? props.label + ": " + formattedTimeLeft : "Pomodoro Timer"}</title>
+        <title>
+          {props.running
+            ? props.label + ": " + formattedTimeLeft
+            : "Pomodoro Timer"}
+        </title>
       </Helmet>
       <svg
         className="progress"
@@ -61,7 +65,7 @@ function Timer(props) {
       <div className="timer-display">
         <div id="timer-label">{props.label}</div>
         <div id="time-left">{formattedTimeLeft}</div>
-        <div id="start_stop" id="start_stop" onClick={props.toggle}>
+        <div id="start_stop" onClick={props.toggle}>
           <FontAwesomeIcon icon={props.running ? faPause : faPlay} />
         </div>
       </div>
@@ -83,9 +87,9 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    toggle: () => dispatch(actions.toggle())
+    toggle: () => dispatch(actions.toggle(ownProps.finished))
   };
 };
 

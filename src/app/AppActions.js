@@ -18,3 +18,18 @@ export const setAudioRef = audioRef => {
     payload: audioRef
   };
 };
+
+export const nextPreset = () => {
+  return (dispatch, getState) => {
+    const { app, presets } = getState();
+    const nextPreset = (app.currentPreset + 1) % presets.length;
+    console.log("Next Preset");
+
+    dispatch({
+      type: "NEXT_PRESET",
+      newPreset: nextPreset,
+      timeLeft: presets[nextPreset].value * 60,
+      label: presets[nextPreset].label
+    });
+  };
+};

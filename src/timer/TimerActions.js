@@ -1,7 +1,7 @@
 const MILLISECONDS = 1000;
 // const MILLISECONDS = 30;
 
-export const tick = () => {
+export const tick = finished => {
   return (dispatch, getState) => {
     const { app, timer, presets } = getState();
     if (timer.timeLeft <= 0) {
@@ -14,26 +14,28 @@ export const tick = () => {
       }
 
       /* TODO: handling next preset would ideally be handled by App */
-      let nextPreset = (app.currentPreset + 1) % presets.length;
 
-      dispatch({
-        type: "NEXT_PRESET",
-        newPreset: nextPreset,
-        timeLeft: presets[nextPreset].value * 60,
-        label: presets[nextPreset].label
-      });
+      // let nextPreset = (app.currentPreset + 1) % presets.length;
+
+      // dispatch({
+      //   type: "NEXT_PRESET",
+      //   newPreset: nextPreset,
+      //   timeLeft: presets[nextPreset].value * 60,
+      //   label: presets[nextPreset].label
+      // });
+      finished();
     } else {
       dispatch({ type: "TICK" });
     }
   };
 };
 
-export const toggle = () => {
+export const toggle = finished => {
   return (dispatch, getState) => {
     const { timer } = getState();
     if (!timer.running) {
       let intervalID = setInterval(() => {
-        dispatch(tick());
+        dispatch(tick(finished));
       }, MILLISECONDS);
       dispatch({ type: "START" });
       dispatch({ type: "SET_INTERVAL", payload: intervalID });
