@@ -18,7 +18,26 @@ const reducer = combineReducers({
   app: appReducer
 });
 
-const middleware = applyMiddleware(logger, thunk);
+const audioMiddleware = store => next => action => {
+  const { app } = store.getState();
+  switch (action.type) {
+    case "NEXT_PRESET":
+      let audioPromise = app.audioRef.play();
+      if (audioPromise !== undefined) {
+        audioPromise.catch(error => {
+          console.log("audio playback failed: " + error);
+        });
+      }
+      break;
+    case "RESET":
+      app.audioRef.pause();
+      app.audioRef.currentTime = 0;
+      break;
+  }
+  next(action);
+};
+
+const middleware = applyMiddleware(thunk, audioMiddleware);
 const store = createStore(reducer, middleware);
 
 ReactDOM.render(

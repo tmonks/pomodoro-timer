@@ -2,8 +2,8 @@ export const reset = () => {
   return (dispatch, getState) => {
     const { timer } = getState();
     /* TODO: handling audioRef would ideally be controlled by Timer */
-    timer.audioRef.pause();
-    timer.audioRef.currentTime = 0;
+    // timer.audioRef.pause();
+    // timer.audioRef.currentTime = 0;
 
     if (timer.running) {
       clearInterval(timer.intervalID);
@@ -23,7 +23,6 @@ export const nextPreset = () => {
   return (dispatch, getState) => {
     const { app, presets } = getState();
     const nextPreset = (app.currentPreset + 1) % presets.length;
-    console.log("Next Preset");
 
     dispatch({
       type: "NEXT_PRESET",

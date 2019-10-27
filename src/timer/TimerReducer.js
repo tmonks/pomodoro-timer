@@ -4,7 +4,7 @@ const initialState = {
   // timeLeft: 5,
   running: false,
   // currentPreset: 0,
-  audioRef: null,
+  // audioRef: null,
   intervalID: null
 };
 
@@ -43,11 +43,11 @@ const timerReducer = (state = initialState, action) => {
         timeLeft: action.timeLeft,
         label: action.label
       };
-    case "SET_AUDIO_REF":
-      return {
-        ...state,
-        audioRef: action.payload
-      };
+    // case "SET_AUDIO_REF":
+    //   return {
+    //     ...state,
+    //     audioRef: action.payload
+    //   };
     case "SET_INTERVAL":
       return {
         ...state,

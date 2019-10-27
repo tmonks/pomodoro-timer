@@ -5,14 +5,15 @@ export const tick = finished => {
   return (dispatch, getState) => {
     const { app, timer, presets } = getState();
     if (timer.timeLeft <= 0) {
-      let audioPromise = timer.audioRef.play();
+      // let audioPromise = timer.audioRef.play();
 
-      if (audioPromise !== undefined) {
-        audioPromise.catch(error => {
-          console.log("audio playback failed: " + error);
-        });
-      }
+      // if (audioPromise !== undefined) {
+      //   audioPromise.catch(error => {
+      //     console.log("audio playback failed: " + error);
+      //   });
+      // }
 
+      finished();
       /* TODO: handling next preset would ideally be handled by App */
 
       // let nextPreset = (app.currentPreset + 1) % presets.length;
@@ -23,7 +24,6 @@ export const tick = finished => {
       //   timeLeft: presets[nextPreset].value * 60,
       //   label: presets[nextPreset].label
       // });
-      finished();
     } else {
       dispatch({ type: "TICK" });
     }

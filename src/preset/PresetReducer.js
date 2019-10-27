@@ -20,7 +20,6 @@ const presetReducer = (state = initialState, action) => {
         }
         return preset;
       });
-      return state;
     case "DECREMENT":
       return state.map((preset, index) => {
         if (action.id === index) {
@@ -28,7 +27,6 @@ const presetReducer = (state = initialState, action) => {
         }
         return preset;
       });
-      return state;
     case "RESET":
       return state.map((preset, index) => {
         return { ...preset, value: initialState[index].value };
