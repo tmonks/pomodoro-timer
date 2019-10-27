@@ -20,12 +20,12 @@ const timerReducer = (state = initialState, action) => {
       return { ...state, running: false };
     case "INCREMENT":
       if (action.id === 0) {
-        return { ...state, timeLeft: state.timeLeft + 60 };
+        return { ...state, timeLeft: action.newValue * 60 };
       }
       return state;
     case "DECREMENT":
       if (action.id === 0) {
-        return { ...state, timeLeft: state.timeLeft - 60 };
+        return { ...state, timeLeft: action.newValue * 60 };
       }
       return state;
     case "RESET":
