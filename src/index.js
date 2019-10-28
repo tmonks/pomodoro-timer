@@ -30,6 +30,7 @@ const audioMiddleware = store => next => action => {
       }
       break;
     case "RESET":
+    case "STOP":
       app.audioRef.pause();
       app.audioRef.currentTime = 0;
       break;
