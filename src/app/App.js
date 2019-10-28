@@ -51,7 +51,7 @@ function App(props) {
         // toggle={props.toggle}
         startTime={props.startTime}
         reset={props.reset}
-        finished={props.nextPreset}
+        // finished={props.nextPreset}
       />
       <div id="reset" onClick={() => props.reset()}>
         <FontAwesomeIcon icon={faUndoAlt} />
@@ -79,8 +79,8 @@ const mapDispatchToProps = dispatch => {
     reset: () => dispatch(actions.reset()),
     // increment: index => dispatch(actions.increment(index)),
     // decrement: index => dispatch(actions.decrement(index)),
-    setAudioRef: audioRef => dispatch(actions.setAudioRef(audioRef)),
-    nextPreset: () => dispatch(actions.nextPreset())
+    setAudioRef: audioRef => dispatch(actions.setAudioRef(audioRef))
+    // nextPreset: () => dispatch(actions.nextPreset())
   };
 };
 
