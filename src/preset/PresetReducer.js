@@ -28,9 +28,10 @@ const presetReducer = (state = initialState, action) => {
         return preset;
       });
     case "RESET":
-      return state.map((preset, index) => {
-        return { ...preset, value: initialState[index].value };
-      });
+      return initialState;
+    // return state.map((preset, index) => {
+    //   return { ...preset, value: initialState[index].value };
+    // });
     default:
       return state;
   }

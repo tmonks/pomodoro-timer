@@ -19,12 +19,13 @@ const timerReducer = (state = initialState, action) => {
     case "STOP":
       return { ...state, running: false };
     case "INCREMENT":
-      if (action.label === state.label && !state.running) {
+      // if (action.label === state.label && !state.running) {
+      if (action.updateTimer && !state.running) {
         return { ...state, timeLeft: action.newValue * 60 };
       }
       return state;
     case "DECREMENT":
-      if (action.label === state.label && !state.running) {
+      if (action.updateTimer && !state.running) {
         return { ...state, timeLeft: action.newValue * 60 };
       }
       return state;
