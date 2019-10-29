@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { Helmet } from "react-helmet";
 
@@ -13,6 +13,18 @@ function Timer(props) {
   const strokeLength = displaySize * Math.PI;
   const percentLeft = props.timeLeft / props.startTime;
   const strokeOffset = strokeLength * percentLeft;
+
+  const intervalID = props.intervalID;
+  const isRunning = props.running;
+
+  /* clear interval on unmount */
+  useEffect(() => {
+    return () => {
+      if (isRunning) {
+        clearInterval(intervalID);
+      }
+    };
+  }, [isRunning, intervalID]);
 
   const formatTime = seconds => {
     let minutesLeft = Math.floor(seconds / 60);
@@ -71,7 +83,8 @@ const mapStateToProps = state => {
   return {
     timeLeft: state.timer.timeLeft,
     running: state.timer.running,
-    audioRef: state.timer.audioRef
+    audioRef: state.timer.audioRef,
+    intervalID: state.timer.intervalID
   };
 };
 

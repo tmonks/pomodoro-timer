@@ -10,15 +10,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUndoAlt } from "@fortawesome/free-solid-svg-icons";
 
 function App(props) {
-  /* clear interval on unmount */
-  useEffect(() => {
-    return () => {
-      if (props.running) {
-        props.reset();
-      }
-    };
-  }, []);
-
   return (
     <div className="app">
       <h1>POMODORO TIMER</h1>
