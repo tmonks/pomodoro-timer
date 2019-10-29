@@ -29,30 +29,9 @@ const presetReducer = (state = initialState, action) => {
       });
     case "RESET":
       return initialState;
-    // return state.map((preset, index) => {
-    //   return { ...preset, value: initialState[index].value };
-    // });
     default:
       return state;
   }
 };
-
-/*
-const initialState = {
-  label: "Work",
-  value: 25
-};
-
-const presetReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case "INCREMENT":
-      return { ...state, value: state.value + 1 };
-    case "DECREMENT":
-      return { ...state, value: state.value - 1 };
-    default:
-      return state;
-  }
-};
-*/
 
 export default presetReducer;

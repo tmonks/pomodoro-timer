@@ -8,15 +8,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretLeft, faCaretRight } from "@fortawesome/free-solid-svg-icons";
 
 function Preset(props) {
-  // const paddedValue = props.value.toString().padStart(2, "0");
-
   const activeStyleContainer = {
     borderBottom: "4px solid #29a4b5"
   };
 
   const activeStyleArrow = {
     cursor: "default"
-    // opacity: 0.25
   };
 
   return (

@@ -3,13 +3,11 @@ import { connect } from "react-redux";
 import { Helmet } from "react-helmet";
 
 import "./Timer.scss";
-import * as actions from "./TimerActions";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay, faPause } from "@fortawesome/free-solid-svg-icons";
 
 function Timer(props) {
-  // let styles = props.running ? { color: "white" } : { color: "lightgray" };
   const displaySize = 200;
   const strokeWidth = 12;
   const strokeLength = displaySize * Math.PI;
@@ -61,16 +59,10 @@ function Timer(props) {
       <div className="timer-display">
         <div id="timer-label">{props.label}</div>
         <div id="time-left">{formattedTimeLeft}</div>
-        <div id="start_stop" onClick={props.toggle}>
+        <div id="start_stop" onClick={props.running ? props.stop : props.start}>
           <FontAwesomeIcon icon={props.running ? faPause : faPlay} />
         </div>
       </div>
-      {/* <button id="start_stop" onClick={props.toggle} className="">
-        {props.running ? "Pause" : "Play"}
-      </button>
-      <button id="reset" onClick={props.reset}>
-        Reset
-  </button> */}
     </div>
   );
 }
@@ -85,8 +77,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    // toggle: () => dispatch(actions.toggle(ownProps.finished))
-    toggle: () => dispatch(actions.toggle())
+    start: () => dispatch({ type: "START" }),
+    stop: () => dispatch({ type: "STOP" })
   };
 };
 
