@@ -26,20 +26,20 @@ export const audioMiddleware = store => next => action => {
 // handles the interval and interaction between Timer, Preset, and App components
 export const timerMiddleware = store => next => action => {
   const { app, timer, presets } = store.getState();
-  let currentPresetValue = null;
+  let activePresetValue = null;
   switch (action.type) {
     case "INCREMENT":
       // add data from app and preset state to the action to tell the timer if/how to update
-      action.updateTimer = app.currentPreset === action.id;
-      currentPresetValue = presets[action.id].value;
-      action.newValue = currentPresetValue < 60 ? currentPresetValue + 1 : currentPresetValue;
+      action.isActivePreset = app.activePreset === action.id;
+      activePresetValue = presets[action.id].value;
+      action.newValue = activePresetValue < 60 ? activePresetValue + 1 : activePresetValue;
       next(action);
       break;
     case "DECREMENT":
       // add data from app and preset state to the action to tell the timer if/how to update
-      action.updateTimer = app.currentPreset === action.id;
-      currentPresetValue = presets[action.id].value;
-      action.newValue = currentPresetValue > 1 ? currentPresetValue - 1 : currentPresetValue;
+      action.isActivePreset = app.activePreset === action.id;
+      activePresetValue = presets[action.id].value;
+      action.newValue = activePresetValue > 1 ? activePresetValue - 1 : activePresetValue;
       next(action);
       break;
     case "START":
@@ -59,7 +59,7 @@ export const timerMiddleware = store => next => action => {
       if (timer.timeLeft <= 0) {
         // when timer reaches 0, identify and switch to the next preset
         const { app, presets } = store.getState();
-        const nextPreset = (app.currentPreset + 1) % presets.length;
+        const nextPreset = (app.activePreset + 1) % presets.length;
         store.dispatch({
           type: "NEXT_PRESET",
           newPreset: nextPreset,

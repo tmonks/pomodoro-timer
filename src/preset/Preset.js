@@ -8,7 +8,7 @@ import { faCaretLeft, faCaretRight } from "@fortawesome/free-solid-svg-icons";
 
 function Preset(props) {
   const activeStyleContainer = {
-    borderBottom: "4px solid #29a4b5"
+    borderBottomColor: "#29a4b5"
   };
 
   const activeStyleArrow = {

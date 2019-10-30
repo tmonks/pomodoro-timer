@@ -14,8 +14,8 @@ function App(props) {
     <div className="app">
       <h1>POMODORO TIMER</h1>
       <div className="presets-container">
-        <Preset index={0} active={props.running && props.currentPreset === 0} />
-        <Preset index={1} active={props.running && props.currentPreset === 1} />
+        <Preset index={0} active={props.running && props.activePreset === 0} />
+        <Preset index={1} active={props.running && props.activePreset === 1} />
       </div>
       <Timer label={props.label} startTime={props.startTime} reset={props.reset} />
       <div id="reset" onClick={() => props.reset()}>
@@ -40,10 +40,10 @@ const setAudioRef = audioRef => {
 
 const mapStateToProps = state => {
   return {
-    label: state.presets[state.app.currentPreset].label,
-    startTime: state.presets[state.app.currentPreset].value * 60,
+    label: state.presets[state.app.activePreset].label,
+    startTime: state.presets[state.app.activePreset].value * 60,
     running: state.timer.running,
-    currentPreset: state.app.currentPreset
+    activePreset: state.app.activePreset
   };
 };
 
