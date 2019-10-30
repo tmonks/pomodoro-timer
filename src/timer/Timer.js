@@ -78,10 +78,14 @@ function Timer(props) {
           strokeDashoffset={strokeOffset.toString()}
         />
       </svg>
-      <div className="timer-display">
+      <div
+        className="timer-display"
+        id="start_stop"
+        onClick={props.running ? props.stop : props.start}
+      >
         <div id="timer-label">{props.label}</div>
         <div id="time-left">{formattedTimeLeft}</div>
-        <div id="start_stop" onClick={props.running ? props.stop : props.start}>
+        <div id="start_stop_icon">
           <FontAwesomeIcon icon={props.running ? faPause : faPlay} />
         </div>
       </div>

@@ -32,6 +32,10 @@
   position: absolute;
   top: 0;
   left: 0;
+
+  /* change cursor to pointer just over the circle*/
+  cursor: pointer;
+  border-radius: 50%;
 }
 
 .progress {
@@ -48,7 +52,7 @@
   stroke-linecap: round;
 }
 
-#start_stop {
+#start_stop_icon {
   font-size: 2em;
   cursor: pointer;
 }
