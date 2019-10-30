@@ -14,6 +14,7 @@ const initialState = [
 const presetReducer = (state = initialState, action) => {
   switch (action.type) {
     case "INCREMENT":
+      /* increment the value for the preset matching id, if < the max of 60 */
       return state.map((preset, index) => {
         if (index === action.id && preset.value < 60) {
           return { ...preset, value: preset.value + 1 };
@@ -21,6 +22,7 @@ const presetReducer = (state = initialState, action) => {
         return preset;
       });
     case "DECREMENT":
+      /* increment the value for the preset matching id, if > the max of 1 */
       return state.map((preset, index) => {
         if (action.id === index && preset.value > 1) {
           return { ...preset, value: preset.value - 1 };

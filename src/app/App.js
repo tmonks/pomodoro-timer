@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
-import "./App.scss";
+import React from "react";
+import { connect } from "react-redux";
+
 import Timer from "../timer/Timer";
 import Preset from "../preset/Preset";
-import { connect } from "react-redux";
-import soundfile from "../assets/beep-beep-bopbop-bop-bop.mp3";
-import * as actions from "./AppActions";
 
+import "./App.scss";
+import soundfile from "../assets/beep-beep-bopbop-bop-bop.mp3";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUndoAlt } from "@fortawesome/free-solid-svg-icons";
 
@@ -13,7 +13,7 @@ function App(props) {
   return (
     <div className="app">
       <h1>POMODORO TIMER</h1>
-      <div className="presets">
+      <div className="presets-container">
         <Preset index={0} active={props.running && props.currentPreset === 0} />
         <Preset index={1} active={props.running && props.currentPreset === 1} />
       </div>
@@ -26,20 +26,31 @@ function App(props) {
   );
 }
 
+const reset = () => {
+  return { type: "RESET" };
+};
+
+/* save a ref to an audio element in order to control playback */
+const setAudioRef = audioRef => {
+  return {
+    type: "SET_AUDIO_REF",
+    payload: audioRef
+  };
+};
+
 const mapStateToProps = state => {
   return {
     label: state.presets[state.app.currentPreset].label,
     startTime: state.presets[state.app.currentPreset].value * 60,
     running: state.timer.running,
-    presets: state.presets,
     currentPreset: state.app.currentPreset
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    reset: () => dispatch(actions.reset()),
-    setAudioRef: audioRef => dispatch(actions.setAudioRef(audioRef))
+    reset: () => dispatch(reset()),
+    setAudioRef: audioRef => dispatch(setAudioRef(audioRef))
   };
 };
 

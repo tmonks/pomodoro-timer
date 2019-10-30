@@ -14,11 +14,13 @@ const timerReducer = (state = initialState, action) => {
     case "STOP":
       return { ...state, running: false };
     case "INCREMENT":
+      /* increment if the timer isn't running and the active preset is being updated */
       if (action.updateTimer && !state.running) {
         return { ...state, timeLeft: action.newValue * 60 };
       }
       return state;
     case "DECREMENT":
+      /* decrement if the timer isn't running and the active preset is being updated */
       if (action.updateTimer && !state.running) {
         return { ...state, timeLeft: action.newValue * 60 };
       }
@@ -26,6 +28,7 @@ const timerReducer = (state = initialState, action) => {
     case "RESET":
       return initialState;
     case "NEXT_PRESET":
+      /* update the timeLeft and label to the next preset */
       return {
         ...state,
         timeLeft: action.timeLeft,

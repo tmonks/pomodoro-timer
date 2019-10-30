@@ -10,9 +10,12 @@ import { faPlay, faPause } from "@fortawesome/free-solid-svg-icons";
 function Timer(props) {
   const displaySize = 200;
   const strokeWidth = 12;
-  const strokeLength = displaySize * Math.PI;
+  const circumference = displaySize * Math.PI;
   const percentLeft = props.timeLeft / props.startTime;
-  const strokeOffset = strokeLength * percentLeft;
+
+  /* strokeOffset needs to start from the circumference (completely hidden)
+     and progress to 0 (completely shown) */
+  const strokeOffset = circumference * percentLeft;
 
   const intervalID = props.intervalID;
   const isRunning = props.running;
@@ -26,6 +29,7 @@ function Timer(props) {
     };
   }, [isRunning, intervalID]);
 
+  /* convert time in seconts to MM:SS */
   const formatTime = seconds => {
     let minutesLeft = Math.floor(seconds / 60);
     let secondsLeft = seconds % 60;
@@ -41,7 +45,9 @@ function Timer(props) {
     <div className="timer-container">
       {" "}
       <Helmet>
-        <title>{props.running ? props.label + ": " + formattedTimeLeft : "Pomodoro Timer"}</title>
+        <title>
+          {props.running ? formattedTimeLeft + " (" + props.label + ")" : "Pomodoro Timer"}
+        </title>
       </Helmet>
       <svg
         className="progress"
@@ -49,6 +55,7 @@ function Timer(props) {
         height={displaySize}
         viewBox={"0 0 " + displaySize + " " + displaySize}
       >
+        {/* Empty radial progress meter */}
         <circle
           className="progress-meter"
           cx={displaySize / 2}
@@ -57,6 +64,7 @@ function Timer(props) {
           fill="none"
           strokeWidth={strokeWidth - 2}
         />
+        {/* Radial progress meter value */}
         <circle
           className="progress-value"
           cx={displaySize / 2}
@@ -64,7 +72,9 @@ function Timer(props) {
           r={(displaySize - strokeWidth) / 2}
           fill="none"
           strokeWidth={strokeWidth}
-          strokeDasharray={strokeLength}
+          /* strokeDasharray sets the length of the dashes in the stroke. When it's set to the
+             circumference, it will fill up the entire circle */
+          strokeDasharray={circumference}
           strokeDashoffset={strokeOffset.toString()}
         />
       </svg>

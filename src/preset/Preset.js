@@ -1,7 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import * as actions from "./PresetActions";
 import "./Preset.scss";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -18,6 +17,7 @@ function Preset(props) {
 
   return (
     <div className="preset-container" style={props.active ? activeStyleContainer : null}>
+      {/* left arrow button */}
       <div
         className="arrow"
         onClick={props.active ? null : props.decrement}
@@ -26,6 +26,8 @@ function Preset(props) {
       >
         <FontAwesomeIcon icon={faCaretLeft} />
       </div>
+
+      {/* Preset value & label */}
       <div className="values">
         <div id={props.id + "-length"} className="preset-value">
           {props.value}
@@ -34,6 +36,8 @@ function Preset(props) {
           {props.label}
         </div>
       </div>
+
+      {/* right arrow button */}
       <div
         className="arrow"
         onClick={props.active ? null : props.increment}
@@ -46,6 +50,14 @@ function Preset(props) {
   );
 }
 
+const increment = id => {
+  return { type: "INCREMENT", id };
+};
+
+const decrement = id => {
+  return { type: "DECREMENT", id };
+};
+
 const mapStateToProps = (state, ownProps) => {
   return {
     label: state.presets[ownProps.index].label,
@@ -56,8 +68,8 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    increment: () => dispatch(actions.increment(ownProps.index)),
-    decrement: () => dispatch(actions.decrement(ownProps.index))
+    increment: () => dispatch(increment(ownProps.index)),
+    decrement: () => dispatch(decrement(ownProps.index))
   };
 };
 

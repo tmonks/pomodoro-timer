@@ -1,7 +1,9 @@
+// handles starting and stopping the alarm sound
 export const audioMiddleware = store => next => action => {
   const { app } = store.getState();
   switch (action.type) {
     case "NEXT_PRESET":
+      // play alarm sound when switching to the next preset
       let audioPromise = app.audioRef.play();
       if (audioPromise !== undefined) {
         audioPromise.catch(error => {
@@ -11,6 +13,7 @@ export const audioMiddleware = store => next => action => {
       break;
     case "RESET":
     case "STOP":
+      // stop and rewind when timer is stopped or reset
       app.audioRef.pause();
       app.audioRef.currentTime = 0;
       break;
@@ -20,25 +23,27 @@ export const audioMiddleware = store => next => action => {
   next(action);
 };
 
+// handles the interval and interaction between Timer, Preset, and App components
 export const timerMiddleware = store => next => action => {
   const { app, timer, presets } = store.getState();
   let currentPresetValue = null;
   switch (action.type) {
     case "INCREMENT":
-      // add in data to tell the timer if/how to update
+      // add data from app and preset state to the action to tell the timer if/how to update
       action.updateTimer = app.currentPreset === action.id;
       currentPresetValue = presets[action.id].value;
       action.newValue = currentPresetValue < 60 ? currentPresetValue + 1 : currentPresetValue;
       next(action);
       break;
     case "DECREMENT":
-      // add in data to tell the timer if/how to update
+      // add data from app and preset state to the action to tell the timer if/how to update
       action.updateTimer = app.currentPreset === action.id;
       currentPresetValue = presets[action.id].value;
       action.newValue = currentPresetValue > 1 ? currentPresetValue - 1 : currentPresetValue;
       next(action);
       break;
     case "START":
+      // start the interval to count down the time left
       let intervalID = setInterval(() => {
         store.dispatch({ type: "TICK" });
       }, 1000);
@@ -52,6 +57,7 @@ export const timerMiddleware = store => next => action => {
       break;
     case "TICK":
       if (timer.timeLeft <= 0) {
+        // when timer reaches 0, identify and switch to the next preset
         const { app, presets } = store.getState();
         const nextPreset = (app.currentPreset + 1) % presets.length;
         store.dispatch({

@@ -13,6 +13,7 @@ const appReducer = (state = initialState, action) => {
         audioRef: action.payload
       };
     case "RESET":
+      /* reset currentPreset, but NOT audioRef */
       return { ...state, currentPreset: initialState.currentPreset };
     default:
       return state;
