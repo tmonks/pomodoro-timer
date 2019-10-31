@@ -10,7 +10,7 @@ import { faPlay, faPause } from "@fortawesome/free-solid-svg-icons";
 function Timer(props) {
   const displaySize = 200;
   const strokeWidth = 12;
-  const circumference = displaySize * Math.PI;
+  const circumference = (displaySize - strokeWidth) * Math.PI;
   const percentLeft = props.timeLeft / props.startTime;
 
   /* strokeOffset needs to start from the circumference (completely hidden)
